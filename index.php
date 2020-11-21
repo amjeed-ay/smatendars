@@ -10,9 +10,9 @@ ob_start();
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Creative - Bootstrap 3 Responsive Admin Template">
-  <meta name="author" content="GeeksLabs">
-  <meta name="keyword" content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
+  <meta name="description" content="Smavators inc">
+  <meta name="author" content="ay amjeed">
+  <meta name="keyword" content="Smavators e-attendance">
   <link rel="shortcut icon" href="img/favicon.png">
 
   <title>Login </title>
@@ -119,8 +119,8 @@ if (isset($_POST['loginBtn'])) {
 <!-- login script to be here -->
   <div class="container">
 
-    <form class="login-form" method="POST" action="index.php">
-      <div class="login-wrap">
+    <form  class="login-form" method="POST" action="index.php">
+      <div class="login-wrap" >
         <p class="login-img"><i class="icon_lock_alt"></i></p>
         <div class="error" style="text-align: center; color: red; padding:10px;"><?php echo $err; ?></div>
         <div class="input-group">
@@ -142,9 +142,9 @@ if (isset($_POST['loginBtn'])) {
       </div>
       
     </form>
-    <div class="text-center" style="padding-top: 250px;">
+    <div class="text-center" style="padding-top: 28%;">
     <h4>Powered by</h4>
-    <img src="logo.png" alt="logo"style="position: relative; top: -20px;"/>
+    <img src="logo.png" alt="logo"style="position: relative; top: -35px;"/>
     </div>
   </div>
 

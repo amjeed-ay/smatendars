@@ -38,11 +38,11 @@ $user_center = $_SESSION['right'];
 <table>
 <form metaction="" method="post" hod="get">     
                 <tr>
-                        <td>Attendance</td>
+                        
       
                         <td>
                         
-                          <input type="date" name="date"  class="form-control" />
+                          <input type="date" name="date"  class="btn btn-default" />
                           
                         </td>
         
@@ -50,7 +50,7 @@ $user_center = $_SESSION['right'];
                         
                         <div class="col-lg-2">
                         <select name="level" class="btn btn-default dropdown-toggle">
-                        <option value="">Select level</option>
+                        <option value="">Level</option>
                         <option <?php if($levels == '1'){ echo 'selected';}?> value="1">Class 1</option>
                         <option <?php if($levels == '2'){ echo 'selected';}?> value="2">Class 2</option>
                         <option <?php if($levels == '3'){ echo 'selected';}?> value="3">Class 3</option>
@@ -60,11 +60,11 @@ $user_center = $_SESSION['right'];
                         </select>
                       </div>
                         </td>
-                        <td style="padding-right: 50px;"></td>
-                        <td>Status:</td>
+                        
+                        
                         <td>
                         <select name="status" class="btn btn-default dropdown-toggle">
-                            <option value="">All</option>
+                            <option value="">Status</option>
                             <option <?php if($stat == 'present'){ echo 'selected';}?> value="present">Present</option>
                             <option <?php if($stat == 'absent'){ echo 'selected';}?> value="absent">Absent</option>
                         </select>

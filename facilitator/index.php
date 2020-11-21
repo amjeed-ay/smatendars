@@ -56,7 +56,7 @@ $total_absent = $rowc[0];
 
         <div class="row">
         
-          <div class="col-lg-2 col-md-2 col-sm-10 col-xs-10">
+          <div class="col-lg-2 col-sm-6 col-xs-4>
           <a class="" href="add_student.php"> <div class="info-box blue-bg">
               <i class="fas fa-user-graduate"></i>
               <div class="count"><?php echo $total; ?></div>
@@ -87,7 +87,7 @@ $total_absent = $rowc[0];
           
          
 
-          <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+          <div class="col-lg-2 col-sm-6 col-xs-12">
           <a class="" href="view_att.php"><div class="info-box green-bg">
               <i class="icon_documents_alt"></i>
               <div class="count"><?php echo $total_present; ?></div>
@@ -99,7 +99,7 @@ $total_absent = $rowc[0];
           </div>
           <!--/.col-->
 
-          <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+          <div class="col-lg-2  col-sm-6 col-xs-12">
           <a class="" href="view_att.php"><div class="info-box red-bg">
               <i class="icon_documents_alt"></i>
               <div class="count"><?php echo $total_absent; ?></div>
@@ -380,7 +380,20 @@ $total_absent = $rowc[0];
         });
       });
     </script>
+<script>
+window.onscroll = function() {myFunction()};
 
+var header = document.getElementById("myHeader");
+var sticky = header.offsetTop;
+
+function myFunction() {
+  if (window.pageYOffset > sticky) {
+    header.classList.add("sticky");
+  } else {
+    header.classList.remove("sticky");
+  }
+}
+</script>
 </body>
 
 </html>

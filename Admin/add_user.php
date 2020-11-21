@@ -22,7 +22,7 @@ if(isset($_POST["addBtn"])){
   $email    = $_POST['email'];
   $level   = $_POST['level'];
   $center    = $_POST['center_l'];
-  $phone    = $_POST['phone'];
+  $phone_l    = $_POST['phone_l'];
   $state_l    = $_POST['state_l'];
   $lga_l    = $_POST['lga_l'];
   $ward_l    = $_POST['ward_l'];
@@ -32,15 +32,22 @@ if(isset($_POST["addBtn"])){
 
   if(isset($_POST['access'])){
     $privi = 'fullaccess';
+  }else{
+    $privi = 'limited';
   }
 
-  if(!empty($fname) && !empty($lname) && !empty($email) && !empty($usernam) && !empty($phone)){
-  			
+  if(!empty($fname) && !empty($lname) && !empty($email) && !empty($usernam) && !empty($phone_l) && !empty($center) && !empty($state_l) && !empty($lga_l) && !empty($ward_l)){
+    $str = "SELECT * FROM user WHERE username = '$usernam'";
+    $result = mysql_query($str);
+    if (mysql_num_rows($result) == 1) {	
+      $err ='Email Already Exist !';
+    }else{		
   $queryu = mysql_query("INSERT INTO user(user_id,center_id,fname,lname,username,password,phone,email,state_id,lga_id,ward_id,level,access,acctype,date,active) 
-						VALUES('','$center',UCASE('$fname'),UCASE('$lname'),'$usernam', PASSWORD('$passwor'),'$phone','$email','$state_l','$lga_l','$ward_l','$level','$privi','$type',NOW(),'$act')") or die("Username already exist");
+						VALUES('','$center',UCASE('$fname'),UCASE('$lname'),'$usernam', PASSWORD('$passwor'),'$phone_l','$email','$state_l','$lga_l','$ward_l','$level','$privi','$type',NOW(),'$act')");
 		if($queryu) doLog("create_user", "user $_SESSION[logged] creates user $usernam ",  $_SESSION['user_id'], $_SERVER['REMOTE_ADDR']  ) ;
 						
-		header("LOCATION: add_user.php");
+    header("LOCATION: add_user.php");
+  }
   }else{
   $err = 'All field (*) are required !';
 }
@@ -64,12 +71,13 @@ if(isset($_POST["addBtn"])){
        
         
         <div class="row">
-          <div class="col-lg-12">
-            <section class="panel" style="width: 70%;">
+          <div class="col-lg-8">
+            <section class="panel">
               <header class="panel-heading">
                 Add Facilitator
               </header>
               <div class="panel-body" >
+              <div> <p style="text-align: center; color:red; padding: 10px;"> <?php echo $err; ?></p></dv>
                 <div class="form">
                   <form class="form-validate form-horizontal " id="register_form" method="post" action="">
                     <div class="form-group ">
@@ -84,7 +92,7 @@ if(isset($_POST["addBtn"])){
                     <div class="form-group ">
                       <label for="fullname" class="control-label col-lg-2">Contact<span class="required">*</span></label>
                       <div class="col-lg-4">
-                        <input class=" form-control" id="fullname" name="phone" type="number" required placeholder="Phone Number" />
+                        <input class=" form-control" id="fullname" name="phone_l" type="number" required placeholder="Phone Number" />
                       </div>
                       <div class="col-lg-6">
                         <input class=" form-control" id="fullname" name="email" type="email" required placeholder="Email" />
@@ -175,16 +183,16 @@ if(isset($_POST["addBtn"])){
             </section>
           </div>
         </div>
-        <div class="row" style="width: 70%;">
-          <div class="col-lg-12">
+        <div class="row">
+          <div class="col-lg-8">
             <section class="panel">
               <header class="panel-heading" style="padding: 10px;">
 <table>
 <form metaction="" method="post" hod="get">     
                 <tr>
-                        <td>Facilitators</td>
+                    
       
-                        <td style="padding-right: 100px;"></td>
+                        
                        <td>
 
                                    <!-- subcategory -->
@@ -229,7 +237,7 @@ if(isset($_POST["addBtn"])){
                       
 
                        </td>
-                        <td style="padding-right: 50px;"></td>
+                        
                         <td><input class="btn btn-success" type="submit" name="viewBtn" value="View"/></td>
                         
                 </tr> 

@@ -28,11 +28,9 @@ if(isset($_POST["addBtn"])){
   $gender_l    = $_POST['gender_l'];
   
 
-  if(isset($_POST['access'])){
-    $privi = 'fullaccess';
-  }
+  
 
-  if(!empty($fname) && !empty($lname) && !empty($center) && !empty($level) && !empty($state_l)){
+  if(!empty($fname) && !empty($lname) && !empty($center) && !empty($state_l) && !empty($lga_l) && !empty($ward_l) && !empty($gender_l)){
   			
   $queryu = mysql_query("INSERT INTO student(student_id,fname,lname,gender,level,center_id,state_id,lga_id,ward_id,date) 
 						VALUES('',UCASE('$fname'),UCASE('$lname'),'$gender_l','$level','$center','$state_l','$lga_l','$ward_l',NOW())") or die("already exist");
@@ -68,6 +66,7 @@ if(isset($_POST["addBtn"])){
                 Add Students
               </header>
               <div class="panel-body" >
+                <div> <p style="text-align: center; color:red; padding: 10px;"> <?php echo $err; ?></p></dv>
                 <div class="form">
                   <form class="form-validate form-horizontal " id="register_form" method="post" action="">
                     <div class="form-group ">
@@ -76,7 +75,7 @@ if(isset($_POST["addBtn"])){
                         <input class=" form-control" id="fullname" name="fname" type="text" required placeholder="Firstname" />
                       </div>
                       <div class="col-lg-4">
-                        <input class=" form-control" id="fullname" name="lname" type="text" required placeholder="Othername" />
+                        <input class=" form-control" id="fullname" name="lname" type="text" required placeholder="Lastname" />
                       </div>
                       
                       <div class="col-lg-2">

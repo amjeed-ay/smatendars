@@ -56,7 +56,7 @@ $total_absent = $rowc[0];
 
         <div class="row">
         
-          <div class="col-lg-2 col-md-2 col-sm-10 col-xs-10">
+          <div class="col-lg-2 col-md-2 col-sm-10 col-xs-12">
           <a class="" href="add_student.php"> <div class="info-box blue-bg">
               <i class="fas fa-user-graduate"></i>
               <div class="count"><?php echo $total; ?></div>
@@ -66,7 +66,7 @@ $total_absent = $rowc[0];
             </a>
             
           </div>
-          <div class="col-lg-2 col-md-2 col-sm-10 col-xs-10">
+          <div class="col-lg-2 col-md-2 col-sm-10 col-xs-12">
           <a class="" href="add_user.php"> <div class="info-box dark-bg">
               <i class="fas fa-chalkboard-teacher"></i>
               <div class="count"><?php echo $total_faci; ?></div>
@@ -76,7 +76,7 @@ $total_absent = $rowc[0];
             </a>
             
           </div>
-          <div class="col-lg-2 col-md-2 col-sm-10 col-xs-10">
+          <div class="col-lg-2 col-md-2 col-sm-10 col-xs-12">
           <a class="" href="add_user.php"> <div class="info-box brown-bg">
               <i class="fas fa-school"></i>
               <div class="count"><?php echo $total_c; ?></div>
