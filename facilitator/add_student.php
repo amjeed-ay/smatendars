@@ -20,10 +20,6 @@ if(isset($_POST["addBtn"])){
   $fname     = $_POST["fname"];
   $lname     = $_POST["lname"];
   $level   = $_POST['level'];
-  $center    = $_POST['center_l'];
-  $state_l    = $_POST['state_l'];
-  $lga_l    = $_POST['lga_l'];
-  $ward_l    = $_POST['ward_l'];
   $gender_l    = $_POST['gender_l'];
   
 
@@ -31,11 +27,11 @@ if(isset($_POST["addBtn"])){
     $privi = 'fullaccess';
   }
 
-  if(!empty($fname) && !empty($lname) && !empty($center) && !empty($level) && !empty($state_l)){
+  if(!empty($fname) && !empty($lname) && !empty($level) && !empty($gender_l)){
   			
   $queryu = mysql_query("INSERT INTO student(student_id,fname,lname,gender,level,center_id,state_id,lga_id,ward_id,date) 
-						VALUES('',UCASE('$fname'),UCASE('$lname'),'$gender_l','$level','$center','$state_l','$lga_l','$ward_l',NOW())") or die("already exist");
-		if($queryu)
+						VALUES('',UCASE('$fname'),UCASE('$lname'),'$gender_l','$level','$user_center','$u_state','$u_lga','$u_ward',NOW())");
+		if($queryu) $err ='Student added successfully';
 						
 		header("LOCATION: add_student.php");
   }else{
@@ -67,18 +63,19 @@ if(isset($_POST["addBtn"])){
                 Add Students
               </header>
               <div class="panel-body" >
+              <div> <p style="text-align: center; color:red; padding: 10px;"> <?php echo $err; ?></p></dv>
                 <div class="form">
                   <form class="form-validate form-horizontal " id="register_form" method="post" action="">
                     <div class="form-group ">
-                      <label for="fullname" class="control-label col-lg-2">Name<span class="required">*</span></label>
-                      <div class="col-lg-4">
+                      <label for="fullname" style="padding-top: 20px;" class="control-label col-lg-2">Name<span class="required">*</span></label>
+                      <div class="col-lg-4" style="padding-top: 20px;">
                         <input class=" form-control" id="fullname" name="fname" type="text" required placeholder="Firstname" />
                       </div>
-                      <div class="col-lg-4">
+                      <div class="col-lg-4" style="padding-top: 20px;">
                         <input class=" form-control" id="fullname" name="lname" type="text" required placeholder="Othername" />
                       </div>
                       
-                      <div class="col-lg-2">
+                      <div class="col-lg-2" style="padding-top: 20px;">
                         <select name="gender_l" class="btn btn-default dropdown-toggle">
                             <option value="none">Gender</option>
                             <option value="M">Male</option>
@@ -87,42 +84,9 @@ if(isset($_POST["addBtn"])){
                       </div>
                     </div>
                     
-                    <div class="form-group ">
-                      <label for="username" class="control-label col-lg-2">Location<span class="required">*</span></label>
-                      
-                      <!-- subcategory -->
-
-                                      <div class="col-lg-2">
-                      <select name="state_l" class="form-control" id="state_list">
-                                  <option value="">Select State</option>
-                                    <?php
-                                    $resultx = mysql_query("SELECT * FROM state");
-                                  while($rowx = mysql_fetch_array($resultx)) {
-                                  ?>
-                                    <option value="<?php echo $rowx["state_id"];?>"><?php echo $rowx["state_name"];?></option>
-                                  <?php
-                                  }
-                                  ?>
-                                  </select>
-                                </div>
-
-                                  <div class="col-lg-2">
-                                    <select name="lga_l" class="form-control" id="lga_list">
-                                    <option value="">Select lga</option>
-                                    </select>
-                                  </div>
-
-                                  <div class="col-lg-2">
-                                    <select name="ward_l" class="form-control" id="ward_list">
-                                    </select>
-                                  </div>
-                                  </div>
                           <div class="form-group ">
-                          <label for="username" class="control-label col-lg-2">Center<span class="required">*</span></label>
-                                  <div class="col-lg-2">
-                                    <select name="center_l" class="form-control" id="center_list">
-                                    </select>
-                                  </div>
+                          <label for="username" class="control-label col-lg-2">Level<span class="required">*</span></label>
+                            
 
 
                       <!-- subcatergory end -->

@@ -49,11 +49,11 @@ $center_l = $_POST["center_l"];
                 <div class="form">
                   <form class="form-validate form-horizontal " id="register_form" method="post" action="">
                   <div class="form-group ">
-                      <label for="username" class="control-label col-lg-2">Select Center Location<span class="required">*</span></label>
+                      <label for="username" class="control-label col-lg-2" style="padding-top: 20px;">Select Center Location<span class="required">*</span></label>
                       
                       <!-- subcategory -->
 
-                                      <div class="col-lg-3">
+                                      <div class="col-lg-3" style="padding-top: 20px;">
                       <select name="state_l" class="form-control" id="state_list">
                                   <option value="">Select State</option>
                                     <?php
@@ -67,20 +67,20 @@ $center_l = $_POST["center_l"];
                                   </select>
                                 </div>
 
-                                  <div class="col-lg-3">
+                                  <div class="col-lg-3" style="padding-top: 20px;">
                                     <select name="lga_l" class="form-control" id="lga_list">
                                     <option value="">Select lga</option>
                                     </select>
                                   </div>
 
-                                  <div class="col-lg-3">
+                                  <div class="col-lg-3" style="padding-top: 20px;">
                                     <select name="ward_l" class="form-control" id="ward_list">
                                     </select>
                                   </div>
                                   </div>
                           <div class="form-group ">
-                          <label for="username" class="control-label col-lg-3">Center<span class="required">*</span></label>
-                                  <div class="col-lg-2">
+                          <label for="username" class="control-label col-lg-3" style="padding-top: 20px;">Center<span class="required"></span></label>
+                                  <div class="col-lg-2" style="padding-top: 20px;">
                                     <select name="center_l" class="form-control" id="center_list">
                                     </select>
                                   </div>
@@ -89,7 +89,7 @@ $center_l = $_POST["center_l"];
                       <!-- subcatergory end -->
                       
                       
-                        <div class="col-lg-2">
+                        <div class="col-lg-2" style="padding-top: 20px;">
                         <select name="level" class="btn btn-default dropdown-toggle">
                         <option value="">Select level</option>
                         <option <?php if($levels == '1'){ echo 'selected';}?> value="1">Class 1</option>
@@ -101,7 +101,7 @@ $center_l = $_POST["center_l"];
                         </select>
                       </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" >
                       <div class="col-lg-offset-2 col-lg-2">
                         <input class="btn btn-primary" type="submit" name="BtnView" value="view"/>
                         
@@ -120,7 +120,7 @@ $center_l = $_POST["center_l"];
 <table>
 <form metaction="" method="post" hod="get">     
                 <tr>
-                        <td>Students Attendance</td>
+                       
       
                         <td>
                         
@@ -128,19 +128,16 @@ $center_l = $_POST["center_l"];
                           
                         </td>
         
-                        <td>
-                        
-                        <td style="padding-right: 50px;"></td>
-                        </td>
-                        <td>Status:</td>
+                        <td style="padding-right: 20px;"></td>
+                       
                         <td>
                         <select name="status" class="btn btn-default dropdown-toggle">
-                            <option value="">All</option>
+                            <option value="">Filter Status</option>
                             <option <?php if($stat == 'present'){ echo 'selected';}?> value="present">Present</option>
                             <option <?php if($stat == 'absent'){ echo 'selected';}?> value="absent">Absent</option>
                         </select>
                         </td>
-                        <td style="padding-right: 50px;"></td>
+                        <td style="padding-right: 20px;"></td>
                         <td><input class="btn btn-success" type="submit" name="viewBtn" value="View"/></td>
                         
                 </tr> 

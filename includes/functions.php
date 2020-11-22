@@ -2,6 +2,9 @@
 $action = $_GET['action'];
 $logout = $_GET['logout'];
 $bug = $_GET['bug'];
+$u_state = $_SESSION['state'];
+$u_lg = $_SESSION['lga'];
+$u_ward = $_SESSION['ward'];
 
 $acctype = $_SESSION['acctype'];
 $logged = $_SESSION['logged'];

@@ -93,14 +93,10 @@ if(isset($_POST['save'])){
               <header class="panel-heading" style="padding: 10px;">
 <table>
               <tr>
-                        <td>Record Attendance</td>
-      
-                        <td>
                         
-                        </td>
         
                         
-                        <td style="padding-right: 50px;"></td>
+                        
                         <td>
                         <div class="btn-group" style="margin-left: 15px;">
                         <select name="level" class="btn btn-default dropdown-toggle">

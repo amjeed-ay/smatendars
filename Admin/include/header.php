@@ -90,7 +90,7 @@ $url=$_SERVER['PHP_SELF'].'?page=admin';
           <li id="mail_notificatoin_bar" class="dropdown">
             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <i class="icon-envelope-l"></i>
-                            <span class="badge bg-important">5</span>
+                            <span class="badge bg-important">0</span>
                         </a>
             
           </li>
@@ -133,8 +133,7 @@ $url=$_SERVER['PHP_SELF'].'?page=admin';
           
           <li class="dropdown">
             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="">
-                               
+                            <span class="" style="color: white; font-size: 15px;"> 
                             <?php echo $logged; ?></span>
                             <b class="caret"></b>
                         </a>
@@ -205,7 +204,7 @@ $url=$_SERVER['PHP_SELF'].'?page=admin';
                       </a>
             <ul class="sub">
               <li><a class="" href="view_att.php"><span>View</span></a></li>
-              <li><a class="" href="track_att.php"><span>Track</span></a></li>
+              <li><a class="" href="view_att.php"><span>Track</span></a></li>
             </ul>
           </li>
 

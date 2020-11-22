@@ -34,7 +34,7 @@ $user_center = $_SESSION['right'];
         <div class="row">
           <div class="col-lg-6">
             <section class="panel">
-              <header class="panel-heading">
+              <header class="panel-heading"style="padding: 10px;">
 <table>
 <form metaction="" method="post" hod="get">     
                 <tr>
@@ -105,6 +105,8 @@ if(isset($_POST['viewBtn'])){
     }
   if(!empty($datea)){
     $query_att.= " AND date BETWEEN '$today 00:00:00' AND '$today 23:59:59';";
+    }else{
+      $query_att.= " AND date BETWEEN '$dat 00:00:00' AND '$dat 23:59:59';";
     }
   }else{
       $query_att.= " AND date BETWEEN '$dat 00:00:00' AND '$dat 23:59:59';";

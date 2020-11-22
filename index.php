@@ -64,6 +64,9 @@ if (isset($_POST['loginBtn'])) {
 				$_SESSION['acctype'] = $row['acctype'];
 				$_SESSION['right'] = $row['center_id'];
         $_SESSION['logged'] = $row['username'];
+        $_SESSION['state'] = $row['state_id'];
+        $_SESSION['lga'] = $row['lga_id'];
+        $_SESSION['ward'] = $row['ward_id'];
         
         if($row['acctype']=='superadmin'){
           $redirectx = "admin/index.php";
@@ -81,8 +84,8 @@ if (isset($_POST['loginBtn'])) {
               $redirectx = "facilitator/index.php";
                 }
 				header ("Refresh: 2; URL=".$redirectx);
-				echo "You are being redirected to your original page request<br>";
-				echo "(If your browser doesn’t support this, <a href=\"".$redirectx."\">click here</a>)";
+				// echo "You are being redirected to your original page request<br>";
+				// echo "(If your browser doesn’t support this, <a href=\"".$redirectx."\">click here</a>)";
 				exit;
 			}
 			else{

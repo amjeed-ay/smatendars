@@ -71,7 +71,7 @@ if(isset($_POST["addBtn"])){
        
         
         <div class="row">
-          <div class="col-lg-8">
+          <div class="col-lg-9">
             <section class="panel">
               <header class="panel-heading">
                 Add Facilitator
@@ -82,19 +82,19 @@ if(isset($_POST["addBtn"])){
                   <form class="form-validate form-horizontal " id="register_form" method="post" action="">
                     <div class="form-group ">
                       <label for="fullname" class="control-label col-lg-2">Name<span class="required">*</span></label>
-                      <div class="col-lg-5">
+                      <div class="col-lg-5" style="padding-top: 20px;">
                         <input class=" form-control" id="fullname" name="fname" type="text" required placeholder="Firstname" />
                       </div>
-                      <div class="col-lg-5">
+                      <div class="col-lg-5" style="padding-top: 20px;">
                         <input class=" form-control" id="fullname" name="lname" type="text" required placeholder="Othername" />
                       </div>
                     </div>
                     <div class="form-group ">
                       <label for="fullname" class="control-label col-lg-2">Contact<span class="required">*</span></label>
-                      <div class="col-lg-4">
+                      <div class="col-lg-4" style="padding-top: 20px;">
                         <input class=" form-control" id="fullname" name="phone_l" type="number" required placeholder="Phone Number" />
                       </div>
-                      <div class="col-lg-6">
+                      <div class="col-lg-6" style="padding-top: 20px;">
                         <input class=" form-control" id="fullname" name="email" type="email" required placeholder="Email" />
                       </div>
                       
@@ -114,7 +114,7 @@ if(isset($_POST["addBtn"])){
                       
                       <!-- subcategory -->
 
-                                      <div class="col-lg-2">
+                                      <div class="col-lg-2" style="padding-top: 20px;">
                       <select name="state_l" class="form-control" id="state_list">
                                   <option value="">Select State</option>
                                     <?php
@@ -128,20 +128,20 @@ if(isset($_POST["addBtn"])){
                                   </select>
                                 </div>
 
-                                  <div class="col-lg-2">
+                                  <div class="col-lg-2" style="padding-top: 20px;">
                                     <select name="lga_l" class="form-control" id="lga_list">
                                     <option value="">Select lga</option>
                                     </select>
                                   </div>
 
-                                  <div class="col-lg-2">
+                                  <div class="col-lg-2" style="padding-top: 20px;">
                                     <select name="ward_l" class="form-control" id="ward_list">
                                     </select>
                                   </div>
                                   </div>
                           <div class="form-group ">
                           <label for="username" class="control-label col-lg-2">Center<span class="required">*</span></label>
-                                  <div class="col-lg-2">
+                                  <div class="col-lg-2" style="padding-top: 20px;">
                                     <select name="center_l" class="form-control" id="center_list">
                                     </select>
                                   </div>
@@ -150,7 +150,7 @@ if(isset($_POST["addBtn"])){
                       <!-- subcatergory end -->
                       
                       
-                        <div class="col-lg-2">
+                        <div class="col-lg-2" style="padding-top: 20px;">
                         <select name="level" class="btn btn-default dropdown-toggle">
                         <option value="">Select level</option>
                         <option <?php if($levels == '1'){ echo 'selected';}?> value="1">Class 1</option>
@@ -166,8 +166,8 @@ if(isset($_POST["addBtn"])){
 
                     
                     <div class="form-group ">
-                      <label for="agree" class="control-label col-lg-2 col-sm-3">Full Access <span class="required">*</span></label>
-                      <div class="col-lg-10 col-sm-9">
+                    <label for="agree" class="control-label col-lg-2">Full Access <span class="required">*</span></label>
+                      <div class="col-lg-offset-2 col-lg-10">
                         <input type="checkbox" style="width: 20px" class="checkbox form-control" id="agree" name="access" />
                       </div>
                     </div>
@@ -184,7 +184,7 @@ if(isset($_POST["addBtn"])){
           </div>
         </div>
         <div class="row">
-          <div class="col-lg-8">
+          <div class="col-lg-9">
             <section class="panel">
               <header class="panel-heading" style="padding: 10px;">
 <table>
@@ -225,7 +225,10 @@ if(isset($_POST["addBtn"])){
                                     </select>
                                   </div>
                                  
-                        </td><td>
+                        </td>
+                        </tr>
+                        <tr>
+                        <td>
                                   <div class="col-lg-4">
                                     <select name="center_v" class="btn btn-default" id="center_view">
                                     <option value="">Filter Center   </option>
@@ -249,11 +252,11 @@ if(isset($_POST["addBtn"])){
                 <tbody>
                   <tr>
                     <th><i class="icon_profile"></i> Full Name</th>
-                    <th><i class="icon_calendar"></i> Date Added</th>
+                    
                     <th><i class="icon_mobile"></i> Phone No</th>
                     <th><i class="icon_mail_alt"></i> Email</th>
                     <th><i class="icon_pin_alt"></i> Center</th>
-                    <th><i class=""></i> Level</th>
+                    
                     <th><i class="icon_cogs"></i> Action</th>
                   </tr>
 
@@ -304,7 +307,7 @@ while($usrnfo = mysql_fetch_array($res4)){
   ?>
                     <tr>
                     <td><?php echo $name_u; ?></td>
-                    <td><?php echo $date_u; ?></td>
+                    
                     <td><?php echo $phone_u; ?></td>
                     <td><?php echo $email_u; ?></td>
                     <td><?php
@@ -316,7 +319,7 @@ while($usrnfo = mysql_fetch_array($res4)){
                         
                         
                         ?></td>
-                    <td><?php echo $level_u; ?></td>
+                    
                     <td>
                       <div class="btn-group">
                       <a href="add_user.php?action=delete&bug=<? echo $id_us ?>" class="btn btn-danger"><i class="icon_close_alt2"></i></a>

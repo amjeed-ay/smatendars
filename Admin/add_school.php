@@ -60,7 +60,7 @@ if(isset($_POST["addBtn"])){
                   <form class="form-validate form-horizontal " id="register_form" method="post" action="">
                     <div class="form-group ">
                       <label for="fullname" class="control-label col-lg-2">School name <span class="required">*</span></label>
-                      <div class="col-lg-8">
+                      <div class="col-lg-8" >
                         <input class=" form-control" id="fullname" name="name_l" type="text" />
                       </div>
                     </div>
@@ -70,7 +70,7 @@ if(isset($_POST["addBtn"])){
                       
                       <!-- subcategory -->
 
-                                      <div class="col-lg-2">
+                                      <div class="col-lg-2" style="padding-top: 20px;">
                       <select name="state_l" class="form-control" id="state_list">
                                   <option value="">Select State</option>
                                     <?php
@@ -84,13 +84,13 @@ if(isset($_POST["addBtn"])){
                                   </select>
                                 </div>
 
-                                  <div class="col-lg-3">
+                                  <div class="col-lg-3" style="padding-top: 20px;">
                                     <select name="lga_l" class="form-control" id="lga_list">
                                     <option value="">Select lga</option>
                                     </select>
                                   </div>
 
-                                  <div class="col-lg-3">
+                                  <div class="col-lg-3" style="padding-top: 20px;">
                                     <select name="ward_l" class="form-control" id="ward_list">
                                     </select>
                                   </div>
@@ -99,7 +99,7 @@ if(isset($_POST["addBtn"])){
                    
                     
                     <div class="form-group">
-                      <div class="col-lg-offset-2 col-lg-10">
+                      <div class="col-lg-offset-2 col-lg-2">
                         <input class="btn btn-primary" type="submit" name="addBtn" value="add"/>
                         
                       </div>
@@ -113,15 +113,10 @@ if(isset($_POST["addBtn"])){
         <div class="row">
           <div class="col-lg-8">
             <section class="panel">
-            <header class="panel-heading" style="padding: 10px;">
-            <table>
+            <header class="panel-heading" style="padding-top: 10px;">
+            
 <form metaction="" method="post" hod="get">     
-                <tr>
-                        <td>Center</td>
-      
-                        <td style="padding-right: 100px;"></td>
-                       <td>
-
+                          <div class="form-group">
                                    <!-- subcategory -->
 
                                    <div class="col-lg-2">
@@ -136,29 +131,24 @@ if(isset($_POST["addBtn"])){
                                   }
                                   ?>
                                   </select>
-                                </div>
-                        </td>
-                        <td>
-
-                                  <div class="col-lg-2">
+                               
                                     <select name="lga_v" class="btn btn-default" id="lga_view">
                                     <option value="">Filter Lga</option>
                                     </select>
-                                  </div>
-                        </td><td>
-                                  <div class="col-lg-2">
+                                  
                                     <select name="ward_v" class="btn btn-default" id="ward_view">
                                     <option value="">Filter Ward</option>
                                     </select>
-                                  </div>
+                                  
                                  
-                        </td>
-                        <td style="padding-right: 50px;"></td>
-                        <td><input class="btn btn-success" type="submit" name="viewBtn" value="View"/></td>
                         
-                </tr> 
+                       
+                        <input class="btn btn-success" type="submit" name="viewBtn" value="View"/>
+                                </div>
+                                </div>
+                
   </form> 
-</table>
+
               </header>
 
               <table class="table table-striped table-advance table-hover">

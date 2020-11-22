@@ -71,14 +71,14 @@ if(isset($_POST["addBtn"])){
                   <form class="form-validate form-horizontal " id="register_form" method="post" action="">
                     <div class="form-group ">
                       <label for="fullname" class="control-label col-lg-2">Name<span class="required">*</span></label>
-                      <div class="col-lg-4">
+                      <div class="col-lg-4" style="padding-top: 20px;">
                         <input class=" form-control" id="fullname" name="fname" type="text" required placeholder="Firstname" />
                       </div>
-                      <div class="col-lg-4">
+                      <div class="col-lg-4" style="padding-top: 20px;">
                         <input class=" form-control" id="fullname" name="lname" type="text" required placeholder="Lastname" />
                       </div>
                       
-                      <div class="col-lg-2">
+                      <div class="col-lg-2" style="padding-top: 20px;">
                         <select name="gender_l" class="btn btn-default dropdown-toggle">
                             <option value="none">Gender</option>
                             <option value="M">Male</option>
@@ -92,7 +92,7 @@ if(isset($_POST["addBtn"])){
                       
                       <!-- subcategory -->
 
-                                      <div class="col-lg-2">
+                                      <div class="col-lg-2" style="padding-top: 20px;">
                       <select name="state_l" class="form-control" id="state_list">
                                   <option value="">Select State</option>
                                     <?php
@@ -106,20 +106,20 @@ if(isset($_POST["addBtn"])){
                                   </select>
                                 </div>
 
-                                  <div class="col-lg-2">
+                                  <div class="col-lg-2" style="padding-top: 20px;">
                                     <select name="lga_l" class="form-control" id="lga_list">
                                     <option value="">Select lga</option>
                                     </select>
                                   </div>
 
-                                  <div class="col-lg-2">
+                                  <div class="col-lg-2" style="padding-top: 20px;">
                                     <select name="ward_l" class="form-control" id="ward_list">
                                     </select>
                                   </div>
                                   </div>
                           <div class="form-group ">
                           <label for="username" class="control-label col-lg-2">Center<span class="required">*</span></label>
-                                  <div class="col-lg-2">
+                                  <div class="col-lg-2" style="padding-top: 20px;">
                                     <select name="center_l" class="form-control" id="center_list">
                                     </select>
                                   </div>
@@ -128,7 +128,7 @@ if(isset($_POST["addBtn"])){
                       <!-- subcatergory end -->
                       
                       
-                        <div class="col-lg-2">
+                        <div class="col-lg-2" style="padding-top: 20px;">
                         <select name="level" class="btn btn-default dropdown-toggle">
                         <option value="">Select level</option>
                         <option <?php if($levels == '1'){ echo 'selected';}?> value="1">Class 1</option>
@@ -158,20 +158,19 @@ if(isset($_POST["addBtn"])){
         <div class="row">
           <div class="col-lg-8">
             <section class="panel">
-              <header class="panel-heading" style="padding: 10px;">
-<table>
+              <header class="panel" style="padding: 10px;">
+
 <form metaction="" method="post" hod="get">     
-                <tr>
-                        
+                  
       
                         
-                       <td>
+                       
 
-                                   <!-- subcategory -->
+                        <div class="form-group ">
 
-                                   <div class="col-lg-2">
+                                   <div class="col-lg-6">
                       <select name="state_v" class="btn btn-default" id="state_view">
-                                  <option value="">Filter State</option>
+                                  <option value="">Filter by State</option>
                                     <?php
                                     $resultxx = mysql_query("SELECT * FROM state");
                                   while($rowxx = mysql_fetch_array($resultxx)) {
@@ -181,40 +180,31 @@ if(isset($_POST["addBtn"])){
                                   }
                                   ?>
                                   </select>
-                                </div>
-                        </td>
-                        <td>
-
-                                  <div class="col-lg-2">
+                               
+                       
+                                  
                                     <select name="lga_v" class="btn btn-default" id="lga_view">
-                                    <option value="">Filter Lga</option>
+                                    <option value="">Filter by Lga</option>
                                     </select>
-                                  </div>
-                        </td><td>
-                                  <div class="col-lg-2">
+                                  
                                     <select name="ward_v" class="btn btn-default" id="ward_view">
-                                    <option value="">Filter Ward</option>
+                                    <option value="">Filter by Ward</option>
                                     </select>
                                   </div>
                                  
-                        </td><td>
+                    
                                   <div class="col-lg-4">
                                     <select name="center_v" class="btn btn-default" id="center_view">
-                                    <option value="">Filter Center   </option>
+                                    <option value="">Select Center   </option>
                                     </select>
-                                  </div>
-
-
-                      <!-- subcatergory end -->
-                      
-
-                       </td>
+                                  
                         
-                        <td><input class="btn btn-success" type="submit" name="viewBtn" value="View"/></td>
-                        
-                </tr> 
+                              <input class="btn btn-success" type="submit" name="viewBtn" value="View"/>
+                                </div>
+                                </div>
+                
   </form> 
-</table>       
+       
               </header>
     
               <table class="table table-striped table-advance table-hover">
