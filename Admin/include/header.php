@@ -71,7 +71,7 @@ $url=$_SERVER['PHP_SELF'].'?page=admin';
     <!--header start-->
     <header class="header dark-bg">
       <div class="toggle-nav">
-        <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"><i class="icon_menu"></i></div>
+        <div class="icon-reorder tooltips" data-original-title=" " data-placement="bottom"><i class="icon_menu"></i></div>
       </div>
 
       <!--logo start-->
@@ -115,13 +115,7 @@ $url=$_SERVER['PHP_SELF'].'?page=admin';
                                     <span class="small italic pull-right">50 mins</span>
                                 </a>
               </li>
-              <li>
-                <a href="#">
-                                    <span class="label label-danger"><i class="icon_book_alt"></i></span>
-                                    Project 3 Completed.
-                                    <span class="small italic pull-right">1 hr</span>
-                                </a>
-              </li>
+              
               
               <li>
                 <a href="#">See all notifications</a>
@@ -145,12 +139,7 @@ $url=$_SERVER['PHP_SELF'].'?page=admin';
               <li>
                 <a href="#"><i class="icon_mail_alt"></i> My Inbox</a>
               </li>
-              <li>
-                <a href="#"><i class="icon_clock_alt"></i> Timeline</a>
-              </li>
-              <li>
-                <a href="#"><i class="icon_chat_alt"></i> Chats</a>
-              </li>
+              
               <li>
               <a href="index.php?logout=yes"><i class="icon_key_alt"></i> Log Out</a>
               </li>
@@ -207,7 +196,23 @@ $url=$_SERVER['PHP_SELF'].'?page=admin';
               <li><a class="" href="view_att.php"><span>Track</span></a></li>
             </ul>
           </li>
-
+          <li class="sub-menu">
+            <a href="javascript:;" class="">
+                          <i class="icon_profile"></i>
+                          <span>My Profile</span>
+                          <span class="menu-arrow arrow_carrot-right"></span>
+                      </a>
+            <ul class="sub">
+              <li><a class="" href="profile.php"><span>Edit Profile</span></a></li>
+              <li><a class="" href="change_pwd.php"><span>Change Password</span></a></li>
+            </ul>
+          </li>
+          <li class="">
+            <a class="" href="index.php?logout=yes">
+                          <i class="icon_key_alt"></i>
+                          <span>Logout</span>
+                      </a>
+          </li>
         </ul>
         <!-- sidebar menu end-->
       </div>

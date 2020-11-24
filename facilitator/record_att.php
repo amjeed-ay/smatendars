@@ -11,7 +11,7 @@ $user_center = $_SESSION['right'];
 
 
 <?php
-
+$level = $_POST['level'];
 
 if(isset($_POST['save'])){
   $ucheckbox = $_POST['uncheck'];
@@ -98,7 +98,7 @@ if(isset($_POST['save'])){
                         
                         
                         <td>
-                        <div class="btn-group" style="margin-left: 15px;">
+                        <div class="col-lg-2" style="margin-left: 15px;">
                         <select name="level" class="btn btn-default dropdown-toggle">
 
                         <option value="">Select level</option>

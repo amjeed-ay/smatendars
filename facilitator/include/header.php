@@ -1,6 +1,6 @@
 <?php
 
-global  $loggedin,$department, $teller, $date, $date2, $nav, $status, $publish, $drugcat, $order_by, $activity;
+global  $loggedin, $date, $status;
 
 
 
@@ -75,7 +75,7 @@ $linksperpage=25;
     <!--header start-->
     <header class="header dark-bg">
       <div class="toggle-nav">
-        <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"><i class="icon_menu"></i></div>
+        <div class="icon-reorder tooltips" data-original-title="" data-placement="bottom"><i class="icon_menu"></i></div>
       </div>
 
       <!--logo start-->
@@ -136,9 +136,8 @@ $linksperpage=25;
           <!-- user login dropdown start-->
           
           <li class="dropdown">
-            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="">
-                                
+          <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="" style="color: white; font-size: 15px;"> 
                             <?php echo $logged; ?></span>
                             <b class="caret"></b>
                         </a>
