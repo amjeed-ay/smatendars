@@ -6,7 +6,7 @@ include ('include/header.php');
 ?>
 
 <?php 
- if($acctype=="superadmin") { 
+ if($acctype=="admin" || $acctype=="superadmin") { 
   ?>
 <?php
 
@@ -221,7 +221,7 @@ while($stinfo = mysql_fetch_array($res4)){
                     </td>
                     <td>
                       <div class="btn-group">
-                      <a href="add_school.php?action=delete&bug=<? echo $id_sch ?>" class="btn btn-danger"><i class="icon_close_alt2"></i></a>
+                      <a href="add_school.php?action=delete&bug=<? echo $id_sch ?>" class="btn btn-danger" onclick="return confirm('Are you sure?')"><i class="icon_close_alt2"></i></a>
                       
                       </div>
                     </td>

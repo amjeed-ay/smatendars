@@ -4,6 +4,10 @@
 
 @import url(line-icons.css);
 
+.naj { 
+  width: 35px;
+  height: 5px;
+  }
 .hide  {
     display: none;
  }

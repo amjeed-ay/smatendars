@@ -5,7 +5,7 @@ include ('include/header.php');
 
 ?>
 <?php 
- if($acctype=="superadmin") { 
+if($acctype=="admin" || $acctype=="superadmin") { 
   ?>
 <?php
 
@@ -274,7 +274,7 @@ $sti = $stinfo['state_id'];
                     // counter-end ?></td>
                     <td>
                     <div class="btn-group">
-                      <a href="add_location.php?action=delete&state_name=<? echo $stinfo['lga_name'] ?>&date=<? echo $myrand; ?>&bug=<? echo $date_sch ?>" class="btn btn-danger"><i class="icon_close_alt2"></i></a>
+                      <a href="add_location.php?action=delete&state_name=<? echo $stinfo['lga_name'] ?>&date=<? echo $myrand; ?>&bug=<? echo $date_sch ?>" class="btn btn-danger" onclick="return confirm('Are you sure?')"><i class="icon_close_alt2"></i></a>
                       </div>
                     </td>
                   </tr>
@@ -300,7 +300,7 @@ $sti = $stinfo['state_id'];
 
                     <td>
                     <div class="btn-group">
-                      <a href="add_location.php?action=delete&state_name=<? echo $stinfo['ward_name']; ?>&date=<? echo $myrand; ?>&bug=<? echo $date_sch ?>" class="btn btn-danger"><i class="icon_close_alt2"></i></a>
+                      <a href="add_location.php?action=delete&state_name=<? echo $stinfo['ward_name']; ?>&date=<? echo $myrand; ?>&bug=<? echo $date_sch ?>" class="btn btn-danger" onclick="return confirm('Are you sure?')"><i class="icon_close_alt2"></i></a>
                       </div>
                     </td>
                   </tr>
@@ -345,7 +345,7 @@ $sti = $stinfo['state_id'];
 
                     <td>
                     <div class="btn-group">
-                      <a href="add_location.php?action=delete&bug=<? echo $sti ?>" class="btn btn-danger"><i class="icon_close_alt2"></i></a>
+                      <a href="add_location.php?action=delete&bug=<? echo $sti ?>" class="btn btn-danger" onclick="return confirm('Are you sure?')"><i class="icon_close_alt2"></i></a>
                       </div>
                     </td>
                   </tr>

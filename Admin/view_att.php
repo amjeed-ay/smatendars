@@ -9,7 +9,7 @@ if($datef = strtotime($_POST['date'])) {
 ?>
 
 <?php 
- if($acctype=="superadmin") { 
+if($acctype=="admin" || $acctype=="superadmin") { 
 
 
   if(isset($_POST['BtnView'])){
@@ -172,7 +172,9 @@ if(isset($_POST['viewBtn'])){
   
   if(!empty($datea)){
     $query_att.= " AND date BETWEEN '$today 00:00:00' AND '$today 23:59:59';";
-    }
+    }else{
+      $query_att.= " AND date BETWEEN '$dat 00:00:00' AND '$dat 23:59:59';";
+  }
   }else{
       $query_att.= " AND date BETWEEN '$dat 00:00:00' AND '$dat 23:59:59';";
   }

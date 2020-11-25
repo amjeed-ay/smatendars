@@ -52,7 +52,7 @@ if (isset($_POST['loginBtn'])) {
     }
 		$str = "SELECT * 
 		        FROM user 
-				WHERE username = '$userName' AND password = PASSWORD('$password') AND (acctype='superadmin' OR acctype='user') ";
+				WHERE username = '$userName' AND password = PASSWORD('$password') AND (acctype='superadmin' OR acctype='user' OR acctype='admin') ";
 		$result = mysql_query($str) or die(mysql_error());
 
 		if (mysql_num_rows($result) == 1) {
@@ -68,22 +68,17 @@ if (isset($_POST['loginBtn'])) {
         $_SESSION['lga'] = $row['lga_id'];
         $_SESSION['ward'] = $row['ward_id'];
         
-        if($row['acctype']=='superadmin'){
-          $redirectx = "admin/index.php";
-            }
-            if($row['acctype']=='user'){
-              $redirectx = "facilitator/index.php";
-                }
+        
 				include_once("includes/functions.php") ;
 				doLog("login", "user $row[username] logs in as $row[acctype] ",  $row['user_id'], $_SERVER['REMOTE_ADDR']  ) ;
         
-        if($row['acctype']=='superadmin'){
+        if($row['acctype']=='superadmin' || $row['acctype']=='admin'){
           $redirectx = "admin/index.php";
             }
             if($row['acctype']=='user'){
               $redirectx = "facilitator/index.php";
                 }
-				header ("Refresh: 2; URL=".$redirectx);
+				header ("location:$redirectx");
 				// echo "You are being redirected to your original page request<br>";
 				// echo "(If your browser doesn’t support this, <a href=\"".$redirectx."\">click here</a>)";
 				exit;

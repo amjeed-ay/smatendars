@@ -8,6 +8,7 @@ include ('include/header.php');
 
 function checkform ()
 {
+    
   if (document.update.addBtn.value="save") {
     alert('Profile Update Successfully');
   }
@@ -15,7 +16,7 @@ function checkform ()
 }
 </script>
 <?php 
- if($acctype=="admin" || $acctype=="superadmin") { 
+ if($acctype=="user") { 
   ?>
 <?php
 if (isset($_GET['user_id'])){

@@ -5,7 +5,7 @@ include ('include/header.php');
 
 ?>
 <?php 
- if($acctype=="superadmin") { 
+ if($acctype=="admin" || $acctype=="superadmin") { 
   ?>
 <?php
 
@@ -27,7 +27,11 @@ if(isset($_POST["addBtn"])){
   $lga_l    = $_POST['lga_l'];
   $ward_l    = $_POST['ward_l'];
   $act     = '1';
-  $type   = 'user';
+  if($acctype == 'superadmin'){
+  $type   = $_POST['accty'];
+  }else{
+    $type = 'user';
+  }
   $passwor = $_POST['password'];
 
   if(isset($_POST['access'])){
@@ -161,14 +165,24 @@ if(isset($_POST["addBtn"])){
                         <option <?php if($levels == '6'){ echo 'selected';}?> value="6">Class 6</option>
                         </select>
                       </div>
+
+                      
                     </div>
                    
 
                     
                     <div class="form-group ">
-                    <label for="agree" class="control-label col-lg-2">Full Access <span class="required">*</span></label>
-                      <div class="col-lg-offset-2 col-lg-10">
+                    <label for="agree" class="control-label col-lg-2" style="padding-top: 20px;">Full Access <span class="required">*</span></label>
+                      <div class="col-lg-2" style="padding-top: 20px;">
                         <input type="checkbox" style="width: 20px" class="checkbox form-control" id="agree" name="access" />
+                      <?php if($acctype == 'superadmin'){?>
+                        <select name="accty" class="btn btn-default dropdown-toggle">
+                        <option value="">Account Type</option>
+                        <option  value="user">user</option>
+                        <option  value="admin">admin</option>
+                        <option  value="superadmin">superadmin</option>
+                        </select>
+                      <?php } ?>
                       </div>
                     </div>
                     <div class="form-group">
@@ -307,7 +321,6 @@ while($usrnfo = mysql_fetch_array($res4)){
   ?>
                     <tr>
                     <td><?php echo $name_u; ?></td>
-                    
                     <td><?php echo $phone_u; ?></td>
                     <td><?php echo $email_u; ?></td>
                     <td><?php
@@ -322,8 +335,9 @@ while($usrnfo = mysql_fetch_array($res4)){
                     
                     <td>
                       <div class="btn-group">
-                      <a href="add_user.php?action=delete&bug=<? echo $id_us ?>" class="btn btn-danger"><i class="icon_close_alt2"></i></a>
-                      
+                      <a href="profile.php?user_id=<? echo $id_us ?>" class="btn btn-primary"><i class="fa fa-edit"></i></a>
+                      <i class="fa fa-edit-o"></i>
+                      <a href="add_user.php?action=delete&bug=<? echo $id_us ?>" onclick="return confirm('Are you sure you want to delete this user?')" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>
                       </div>
                     </td>
                   </tr>

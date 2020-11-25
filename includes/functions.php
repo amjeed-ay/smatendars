@@ -29,9 +29,7 @@ doLogout();
 function doLogout()
 {
 session_destroy();
-header("Refresh: 2; URL=../index.php");
-echo "(If your browser doesnt support this, <a
-href=\"../index.php\">click here</a>)";
+header("location:../index.php");
 die();
 }
 

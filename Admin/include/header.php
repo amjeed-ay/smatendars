@@ -1,29 +1,10 @@
 <?php
 
-
-
-
-
 require_once "../includes/config.php";
-
-
 
 require_once "../includes/functions.php";
 
-
-
-
-
-
 ob_start();
-
-
-
-$url=$_SERVER['PHP_SELF'].'?page=admin';
-
-
-
-
 
 ?>
 
@@ -59,33 +40,23 @@ $url=$_SERVER['PHP_SELF'].'?page=admin';
 
 <body>
 
-
-
-
-
 <?php 
- if($acctype=="superadmin") { 
+ if($acctype=="admin" || $acctype=="superadmin") { 
   ?>
   <!-- container section start -->
   <section id="container" class="">
     <!--header start-->
     <header class="header dark-bg">
       <div class="toggle-nav">
-        <div class="icon-reorder tooltips" data-original-title=" " data-placement="bottom"><i class="icon_menu"></i></div>
+        <div class="icon-reorder tooltips" data-placement="bottom"><i  class="fa fa-bars" style="font-size:30px"></i></div>
       </div>
 
       <!--logo start-->
-      <a href="index.php" class="logo"><span class="lite">Administrator</span></a>
+      <a href="index.php" class="logo"><span class="lite" style="padding-left:40px">Administrator</span></a>
       <!--logo end-->
-
-
       <div class="top-nav notification-row">
         <!-- notificatoin dropdown start-->
         <ul class="nav pull-right top-menu">
-
-          <!-- task notificatoin start -->
-          
-          <!-- task notificatoin end -->
           <!-- inbox notificatoin start-->
           <li id="mail_notificatoin_bar" class="dropdown">
             <a data-toggle="dropdown" class="dropdown-toggle" href="#">

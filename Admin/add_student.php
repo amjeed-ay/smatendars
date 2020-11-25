@@ -5,7 +5,7 @@ include ('include/header.php');
 
 ?>
 <?php 
- if($acctype=="superadmin") { 
+if($acctype=="admin" || $acctype=="superadmin") { 
   ?>
 <?php
 
