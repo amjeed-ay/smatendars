@@ -133,13 +133,13 @@ if(isset($_POST["addBtn"])){
         <div class="row">
           <div class="col-lg-12">
             <section class="panel">
-              <header class="panel-heading">
+              <header class="panel-heading" style="padding: 10px;">
               
 <table>
 
 <form metaction="" method="post" hod="get"> 
               <tr>
-                        <td>Location</td>
+                        
       
                         <td>
 
@@ -147,7 +147,7 @@ if(isset($_POST["addBtn"])){
 
                                    <div class="col-lg-2">
                       <select name="state_v" class="btn btn-default" id="state_view">
-                                  <option value="">Filter State</option>
+                                  <option value="">View by State</option>
                                     <?php
                                     $resultxx = mysql_query("SELECT * FROM state");
                                   while($rowxx = mysql_fetch_array($resultxx)) {

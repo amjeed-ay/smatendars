@@ -48,7 +48,7 @@ if(isset($_POST['save'])){
 	for($i=0;$i<count($checkbox);$i++){
   $del_id = $checkbox[$i]; 
   $status ='present';
-	mysql_query("UPDATE attendance SET status ='$status' WHERE student_id = '$del_id'");
+	mysql_query("UPDATE attendance SET status ='$status' WHERE student_id = '$del_id' AND date = NOW()");
 	$message = "Attendance saved successfully !";
 }
 }

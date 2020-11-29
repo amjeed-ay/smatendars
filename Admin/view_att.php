@@ -116,7 +116,7 @@ $center_l = $_POST["center_l"];
         <div class="row">
           <div class="col-lg-6">
             <section class="panel">
-              <header class="panel-heading">
+              <header class="panel-heading" style="padding: 10px;">
 <table>
 <form metaction="" method="post" hod="get">     
                 <tr>
