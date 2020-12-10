@@ -3,36 +3,25 @@
 
 include ('include/header.php');
 
-?>
 
-<?php 
- if($acctype=="admin" || $acctype=="superadmin") { 
-  ?>
-<?php
-
-
-if(isset($action)){
-
-  mysql_query("DELETE FROM centre WHERE center_id='$bug'");
-  
-  }
-
-if(isset($_POST["addBtn"])){
-
+if($acctype=="admin" || $acctype=="superadmin") { 
+  $errors = '';
+  if(isset($_POST["addBtn"])){
   $name     = $_POST["name_l"];
   $state   = $_POST["state_l"];
   $lga    = $_POST['lga_l'];
   $ward    = $_POST['ward_l'];
-  
- 
-					
-  $query = mysql_query("INSERT INTO centre(center_id,center_name,GPS_location,state_id,LGA_id,Ward_id,date) 
-          VALUES('', UCASE('$name'), '', '$state','$lga','$ward',NOW())") or die("already exist");
-  if($query)
-          
+  if(isset($name) && isset($state) && isset($lga) && isset($ward)){		
+  $query = $conn->query("INSERT INTO centre(center_id,center_name,GPS_location,state_id,LGA_id,Ward_id,date) VALUES('', UCASE('$name'), '', '$state','$lga','$ward',NOW())") or die("already exist");
+  if($query)  
   header("LOCATION: add_school.php");
+  } else{
+    $errors = 'Please Select Location ';
+  }
 }
 ?>
+
+
     <!--main content start-->
     <section id="main-content">
       <section class="wrapper">
@@ -45,9 +34,7 @@ if(isset($_POST["addBtn"])){
           </div>
         </div>
         <!-- page start-->
- 
-       
-        
+
         <div class="row">
           <div class="col-lg-8">
             <section class="panel">
@@ -55,13 +42,13 @@ if(isset($_POST["addBtn"])){
                 Add Center
               </header>
               <div class="panel-body" >
-              <div><?php echo $errors;?></di>
+              <div> <p style="text-align: center; color:red; padding: 10px;"> <?php echo $errors; ?></p></dv>
                 <div class="form">
                   <form class="form-validate form-horizontal " id="register_form" method="post" action="">
                     <div class="form-group ">
                       <label for="fullname" class="control-label col-lg-2">School name <span class="required">*</span></label>
                       <div class="col-lg-8" >
-                        <input class=" form-control" id="fullname" name="name_l" type="text" />
+                        <input required class=" form-control" id="fullname" name="name_l" type="text" />
                       </div>
                     </div>
 
@@ -71,11 +58,11 @@ if(isset($_POST["addBtn"])){
                       <!-- subcategory -->
 
                                       <div class="col-lg-2" style="padding-top: 20px;">
-                      <select name="state_l" class="form-control" id="state_list">
+                                <select  required name="state_l" class="form-control" id="state_list">
                                   <option value="">Select State</option>
                                     <?php
-                                    $resultx = mysql_query("SELECT * FROM state");
-                                  while($rowx = mysql_fetch_array($resultx)) {
+                                    $resultx = $conn->query("SELECT * FROM state");
+                                  while($rowx = mysqli_fetch_array($resultx)) {
                                   ?>
                                     <option value="<?php echo $rowx["state_id"];?>"><?php echo $rowx["state_name"];?></option>
                                   <?php
@@ -83,13 +70,11 @@ if(isset($_POST["addBtn"])){
                                   ?>
                                   </select>
                                 </div>
-
                                   <div class="col-lg-3" style="padding-top: 20px;">
                                     <select name="lga_l" class="form-control" id="lga_list">
                                     <option value="">Select lga</option>
                                     </select>
                                   </div>
-
                                   <div class="col-lg-3" style="padding-top: 20px;">
                                     <select name="ward_l" class="form-control" id="ward_list">
                                     </select>
@@ -123,15 +108,16 @@ if(isset($_POST["addBtn"])){
                       <select name="state_v" class="btn btn-default" id="state_view">
                                   <option value="">Filter State</option>
                                     <?php
-                                    $resultxx = mysql_query("SELECT * FROM state");
-                                  while($rowxx = mysql_fetch_array($resultxx)) {
+                                    $resultxx = $conn->query("SELECT * FROM state");
+                                  while($rowxx = mysqli_fetch_array($resultxx)) {
                                   ?>
                                     <option value="<?php echo $rowxx["state_id"];?>"><?php echo $rowxx["state_name"];?></option>
                                   <?php
                                   }
                                   ?>
                                   </select>
-                               
+                                  </div>
+                                  <div class="form-group">
                                     <select name="lga_v" class="btn btn-default" id="lga_view">
                                     <option value="">Filter Lga</option>
                                     </select>
@@ -140,9 +126,6 @@ if(isset($_POST["addBtn"])){
                                     <option value="">Filter Ward</option>
                                     </select>
                                   
-                                 
-                        
-                       
                         <input class="btn btn-success" type="submit" name="viewBtn" value="View"/>
                                 </div>
                                 </div>
@@ -170,23 +153,20 @@ if(isset($_POST['viewBtn'])){
    
  
   if(!empty($state_v)){
- 
    $sql4.= " AND state_id = '$state_v' ";
   }
  
   if(!empty($lga_v)){
- 
    $sql4.= " AND lga_id = '$lga_v' ";
   }
   if(!empty($ward_v)){
- 
    $sql4.= " AND ward_id = '$ward_v' ";
   }
    
  }
  
-$res4 = mysql_query($sql4) ;
-while($stinfo = mysql_fetch_array($res4)){
+$res4 = $conn->query($sql4) ;
+while($stinfo = mysqli_fetch_array($res4)){
   $name_sch = $stinfo['center_name'];
   $id_sch = $stinfo['center_id'];
   $state_sch = $stinfo['state_id'];
@@ -196,33 +176,16 @@ while($stinfo = mysql_fetch_array($res4)){
   ?>
                   <tr>
                     <td><?php echo $name_sch; ?></td>
-                    
 
-                    <td>
-                    <?php $center_arr = getMany('state',$state_sch,'state_id');
-                     if(is_array($center_arr)){
-                     $c_name = $center_arr['state_name'];
-                    echo $c_name; }?>
-                    </td>
+                    <td><?php echo getRecord('state','state_id',$state_sch,'state_name',$conn);?></td>
                     
-                    
-                    <td>
-                    <?php $lga_arr = getMany('lga',$lga_sch,'lga_id');
-                     if(is_array($lga_arr)){
-                     $l_name = $lga_arr['lga_name'];
-                    echo $l_name; }?>
-                    </td>
+                    <td><td><?php echo getRecord('lga','lga_id',$lga_sch,'lga_name',$conn);?></td></td>
 
-                    <td>
-                    <?php $ward_arr = getMany('ward',$ward_sch,'ward_id');
-                     if(is_array($ward_arr)){
-                     $w_name = $ward_arr['ward_name'];
-                    echo $w_name; }?>
-                    </td>
+                    <td><td><?php echo getRecord('ward','ward_id',$ward_sch,'ward_name',$conn);?></td></td>
+
                     <td>
                       <div class="btn-group">
-                      <a href="add_school.php?action=delete&bug=<? echo $id_sch ?>" class="btn btn-danger" onclick="return confirm('Are you sure?')"><i class="icon_close_alt2"></i></a>
-                      
+                      <a href="add_school.php?action=tled&blet=centre&dis=center_id&bug=<?php echo $id_sch ?>" onclick="return confirm('Are you sure you want to delete?')" class="btn btn-danger"><i class="icon_close_alt2"></i></a>
                       </div>
                     </td>
                   </tr>
@@ -330,10 +293,7 @@ $(document).ready(function() {
 </html>
 <?php
  } else{
-
-  @header ("Refresh: 2; URL=".'../index.php');
-  echo "You are being redirected to your original page request<br>";
-  echo '(If your browser doesn’t support this, <a href="../index.php">click here</a>)';
+  header("location:../index.php");
  }
 
 ?>

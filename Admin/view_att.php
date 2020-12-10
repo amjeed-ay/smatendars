@@ -2,26 +2,23 @@
 <?php
 
 include ('include/header.php');
-$dat = date('Y-m-d');
+
 if($datef = strtotime($_POST['date'])) {
   $today = date('Y-m-d', $datef);
 }
-?>
-
-<?php 
+ 
 if($acctype=="admin" || $acctype=="superadmin") { 
 
 
-  if(isset($_POST['BtnView'])){
+if(isset($_POST['BtnView'])){
 
 $state_l = $_POST['state_l'];
 
 $center_l = $_POST["center_l"];
 
+}
 
-  }
-
-  ?>
+?>
 
     <!--main content start-->
     <section id="main-content">
@@ -53,25 +50,25 @@ $center_l = $_POST["center_l"];
                       
                       <!-- subcategory -->
 
-                                      <div class="col-lg-3" style="padding-top: 20px;">
+                    <div class="col-lg-3" style="padding-top: 20px;">
                       <select name="state_l" class="form-control" id="state_list">
                                   <option value="">Select State</option>
                                     <?php
-                                    $resultx = mysql_query("SELECT * FROM state");
-                                  while($rowx = mysql_fetch_array($resultx)) {
+                                    $resultx = $conn->query("SELECT * FROM state");
+                                  while($rowx = mysqli_fetch_array($resultx)) {
                                   ?>
                                     <option <?php if (isset($state_l) && $state_l == $rowx["state_id"]) echo "selected" ;?> value="<?php echo $rowx["state_id"];?>"><?php echo $rowx["state_name"];?></option>
                                   <?php
                                   }
                                   ?>
-                                  </select>
-                                </div>
+                        </select>
+                      </div>
 
-                                  <div class="col-lg-3" style="padding-top: 20px;">
-                                    <select name="lga_l" class="form-control" id="lga_list">
+                      <div class="col-lg-3" style="padding-top: 20px;">
+                        <select name="lga_l" class="form-control" id="lga_list">
                                     <option value="">Select lga</option>
-                                    </select>
-                                  </div>
+                        </select>
+                      </div>
 
                                   <div class="col-lg-3" style="padding-top: 20px;">
                                     <select name="ward_l" class="form-control" id="ward_list">
@@ -87,17 +84,16 @@ $center_l = $_POST["center_l"];
 
 
                       <!-- subcatergory end -->
-                      
-                      
+                  
                         <div class="col-lg-2" style="padding-top: 20px;">
                         <select name="level" class="btn btn-default dropdown-toggle">
                         <option value="">Select level</option>
-                        <option <?php if($levels == '1'){ echo 'selected';}?> value="1">Class 1</option>
-                        <option <?php if($levels == '2'){ echo 'selected';}?> value="2">Class 2</option>
-                        <option <?php if($levels == '3'){ echo 'selected';}?> value="3">Class 3</option>
-                        <option <?php if($levels == '4'){ echo 'selected';}?> value="4">Class 4</option>
-                        <option <?php if($levels == '5'){ echo 'selected';}?> value="5">Class 5</option>
-                        <option <?php if($levels == '6'){ echo 'selected';}?> value="6">Class 6</option>
+                        <option <?php if(isset($levels) && $levels == '1'){ echo 'selected';}?> value="1">Class 1</option>
+                        <option <?php if(isset($levels) && $levels == '2'){ echo 'selected';}?> value="2">Class 2</option>
+                        <option <?php if(isset($levels) && $levels == '3'){ echo 'selected';}?> value="3">Class 3</option>
+                        <option <?php if(isset($levels) && $levels == '4'){ echo 'selected';}?> value="4">Class 4</option>
+                        <option <?php if(isset($levels) && $levels == '5'){ echo 'selected';}?> value="5">Class 5</option>
+                        <option <?php if(isset($levels) && $levels == '6'){ echo 'selected';}?> value="6">Class 6</option>
                         </select>
                       </div>
                     </div>
@@ -120,21 +116,15 @@ $center_l = $_POST["center_l"];
 <table>
 <form metaction="" method="post" hod="get">     
                 <tr>
-                       
-      
-                        <td>
-                        
-                          <input type="date" name="date"  class="form-control" />
-                          
-                        </td>
+                        <td><input type="date" name="date"  class="form-control" /></td>
         
                         <td style="padding-right: 20px;"></td>
                        
                         <td>
                         <select name="status" class="btn btn-default dropdown-toggle">
                             <option value="">Filter Status</option>
-                            <option <?php if($stat == 'present'){ echo 'selected';}?> value="present">Present</option>
-                            <option <?php if($stat == 'absent'){ echo 'selected';}?> value="absent">Absent</option>
+                            <option <?php if(isset($stat) && $stat == 'present'){ echo 'selected';}?> value="present">Present</option>
+                            <option <?php if(isset($stat) && $stat == 'absent'){ echo 'selected';}?> value="absent">Absent</option>
                         </select>
                         </td>
                         <td style="padding-right: 20px;"></td>
@@ -156,7 +146,7 @@ $center_l = $_POST["center_l"];
             
                   </tr>
 
-  <?
+<?php
   
 $query_att = "SELECT * FROM attendance WHERE status!='' " ;
 if(!empty($center_l)){
@@ -179,8 +169,8 @@ if(isset($_POST['viewBtn'])){
       $query_att.= " AND date BETWEEN '$dat 00:00:00' AND '$dat 23:59:59';";
   }
   
-$res5 = mysql_query($query_att) ;
-while($stinfo = mysql_fetch_array($res5)){
+$res5 = $conn->query($query_att) ;
+while($stinfo = mysqli_fetch_array($res5)){
   $name_att = $stinfo["lname"].' '.$stinfo["fname"];
   $gender_att = $stinfo["gender"];
   $stu_id = $stinfo["student_id"];
@@ -273,15 +263,12 @@ $(document).ready(function() {
 $("#checkAl").click(function () {
 $('input:checkbox').not(this).prop('checked', this.checked);
 });
-</script
+</script>
 </html>
 
 <?php
  } else{
-
-  @header ("Refresh: 2; URL=".'../index.php');
-  echo "You are being redirected to your original page request<br>";
-  echo '(If your browser doesn’t support this, <a href="../index.php">click here</a>)';
+  header("location:../index.php");
  }
 
 ?>

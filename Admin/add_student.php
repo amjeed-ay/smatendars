@@ -1,21 +1,8 @@
 
 <?php
-
 include ('include/header.php');
-
-?>
-<?php 
-if($acctype=="admin" || $acctype=="superadmin") { 
-  ?>
-<?php
-
-
-
-if(isset($action)){
-
-  mysql_query("DELETE FROM student WHERE student_id='$bug'");
-  
-  }
+if($acctype=="admin" || $acctype=="superadmin") {
+$err = '';
 
 if(isset($_POST["addBtn"])){
   $fname     = $_POST["fname"];
@@ -28,15 +15,12 @@ if(isset($_POST["addBtn"])){
   $gender_l    = $_POST['gender_l'];
   
 
-  
-
   if(!empty($fname) && !empty($lname) && !empty($center) && !empty($state_l) && !empty($lga_l) && !empty($ward_l) && !empty($gender_l)){
   			
-  $queryu = mysql_query("INSERT INTO student(student_id,fname,lname,gender,level,center_id,state_id,lga_id,ward_id,date) 
+  $queryu = $conn->query("INSERT INTO student(student_id,fname,lname,gender,level,center_id,state_id,lga_id,ward_id,date) 
 						VALUES('',UCASE('$fname'),UCASE('$lname'),'$gender_l','$level','$center','$state_l','$lga_l','$ward_l',NOW())") or die("already exist");
 		if($queryu)
-						
-		header("LOCATION: add_student.php");
+		header("LOCATION:".$current);
   }else{
   $err = 'All field (*) are required !';
 }
@@ -56,9 +40,6 @@ if(isset($_POST["addBtn"])){
           </div>
         </div>
         <!-- page start-->
- 
-       
-        
         <div class="row">
           <div class="col-lg-8">
             <section class="panel">
@@ -96,8 +77,8 @@ if(isset($_POST["addBtn"])){
                       <select name="state_l" class="form-control" id="state_list">
                                   <option value="">Select State</option>
                                     <?php
-                                    $resultx = mysql_query("SELECT * FROM state");
-                                  while($rowx = mysql_fetch_array($resultx)) {
+                                    $resultx = $conn->query("SELECT * FROM state");
+                                  while($rowx = mysqli_fetch_array($resultx)) {
                                   ?>
                                     <option value="<?php echo $rowx["state_id"];?>"><?php echo $rowx["state_name"];?></option>
                                   <?php
@@ -126,17 +107,16 @@ if(isset($_POST["addBtn"])){
 
 
                       <!-- subcatergory end -->
-                      
-                      
+        
                         <div class="col-lg-2" style="padding-top: 20px;">
                         <select name="level" class="btn btn-default dropdown-toggle">
                         <option value="">Select level</option>
-                        <option <?php if($levels == '1'){ echo 'selected';}?> value="1">Class 1</option>
-                        <option <?php if($levels == '2'){ echo 'selected';}?> value="2">Class 2</option>
-                        <option <?php if($levels == '3'){ echo 'selected';}?> value="3">Class 3</option>
-                        <option <?php if($levels == '4'){ echo 'selected';}?> value="4">Class 4</option>
-                        <option <?php if($levels == '5'){ echo 'selected';}?> value="5">Class 5</option>
-                        <option <?php if($levels == '6'){ echo 'selected';}?> value="6">Class 6</option>
+                        <option <?php if(isset($levels) && $levels == '1'){ echo 'selected';}?> value="1">Class 1</option>
+                        <option <?php if(isset($levels) && $levels == '2'){ echo 'selected';}?> value="2">Class 2</option>
+                        <option <?php if(isset($levels) && $levels == '3'){ echo 'selected';}?> value="3">Class 3</option>
+                        <option <?php if(isset($levels) && $levels == '4'){ echo 'selected';}?> value="4">Class 4</option>
+                        <option <?php if(isset($levels) && $levels == '5'){ echo 'selected';}?> value="5">Class 5</option>
+                        <option <?php if(isset($levels) && $levels == '6'){ echo 'selected';}?> value="6">Class 6</option>
                         </select>
                       </div>
                     </div>
@@ -162,27 +142,21 @@ if(isset($_POST["addBtn"])){
 
 <form metaction="" method="post" hod="get">     
                   
-      
-                        
-                       
-
                         <div class="form-group ">
 
                                    <div class="col-lg-6">
                       <select name="state_v" class="btn btn-default" id="state_view">
                                   <option value="">Filter by State</option>
                                     <?php
-                                    $resultxx = mysql_query("SELECT * FROM state");
-                                  while($rowxx = mysql_fetch_array($resultxx)) {
+                                    $resultxx = $conn->query("SELECT * FROM state");
+                                  while($rowxx = mysqli_fetch_array($resultxx)) {
                                   ?>
                                     <option value="<?php echo $rowxx["state_id"];?>"><?php echo $rowxx["state_name"];?></option>
                                   <?php
                                   }
                                   ?>
                                   </select>
-                               
-                       
-                                  
+                              
                                     <select name="lga_v" class="btn btn-default" id="lga_view">
                                     <option value="">Filter by Lga</option>
                                     </select>
@@ -217,7 +191,7 @@ if(isset($_POST["addBtn"])){
                     <th><i class="icon_cogs"></i> Action</th>
                   </tr>
 
-                  <?
+<?php
  $sql4 = "SELECT * FROM `student` WHERE `date` !='' " ;
 
 if(isset($_POST['viewBtn'])){
@@ -227,32 +201,25 @@ if(isset($_POST['viewBtn'])){
  $center_v = $_POST['center_v']; 
 
  if(!empty($state_v)){
-
   $sql4.= " AND state_id = '$state_v' ";
  }
 
  if(!empty($lga_v)){
-
   $sql4.= " AND lga_id = '$lga_v' ";
  }
- if(!empty($ward_v)){
 
+ if(!empty($ward_v)){
   $sql4.= " AND ward_id = '$ward_v' ";
  }
   
  if(!empty($center_v)){
-
   $sql4.= " AND center_id = '$center_v' ";
  }
   
-
-
-  
-  
 }
 
-$res4 = mysql_query($sql4) ;
-while($usrnfo = mysql_fetch_array($res4)){
+$res4 = $conn->query($sql4) ;
+while($usrnfo = mysqli_fetch_array($res4)){
   $name_u = $usrnfo["lname"].' '.$usrnfo["fname"];
   $date_u = $usrnfo['date'];
   $id_us = $usrnfo['student_id'];
@@ -263,20 +230,11 @@ while($usrnfo = mysql_fetch_array($res4)){
                     <tr>
                     <td><?php echo $name_u; ?></td>
                     <td><?php echo $date_u; ?></td>
-                    <td><?php
-
-                     $center_arr = getMany('centre',$center_uid,'center_id');
-                     if(is_array($center_arr)){
-                       echo $center_arr['center_name'];
-                        } 
-                        
-                        
-                        ?></td>
+                    <td><?php echo getRecord('centre','center_id',$center_uid,'center_name',$conn);?></td>
                     <td><?php echo $level_u; ?></td>
                     <td>
                       <div class="btn-group">
-                      <a href="add_student.php?action=delete&bug=<? echo $id_us ?>" class="btn btn-danger"><i class="icon_close_alt2"></i></a>
-                      
+                      <a href="add_student.php?action=tled&blet=student&dis=student_id&bug=<?php echo $id_us ?>" onclick="return confirm('Are you sure you want to delete?')" class="btn btn-danger"><i class="icon_close_alt2"></i></a>
                       </div>
                     </td>
                   </tr>

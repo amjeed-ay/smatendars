@@ -31,18 +31,19 @@ function checkform ()
 </script>
 
 <?php if($acctype == "admin" || $acctype == "superadmin") { 
+  $err = '';
 	if(isset($_POST["submitBtn"])){
 		$curr_password = $_POST['curr_pass'] ;
         $duser = $_SESSION['logged'] ;
         $password = $_POST['password'];
         $password2 = $_POST['password2'];
         $user_id  = $_SESSION['user_id'];
-		$sql10 = "SELECT * FROM user WHERE PASSWORD('$curr_password') = password AND username = '$duser' " ;
-		$res10 = mysql_query($sql10) ;
-		if(mysql_num_rows($res10) and $_POST['curr_pass']){
+		$sql10 = "SELECT password FROM user WHERE PASSWORD('$curr_password') = password AND user_id = '$user_id' " ;
+		$res10 = $conn->query($sql10) ;
+		if($res10->num_rows == 1){
 			$sql = "UPDATE user SET password  = PASSWORD('$password') WHERE user_id='$user_id'";
-			$query = mysql_query($sql);
-			header("LOCATION: index.php?logout=yes");
+      $query = $conn->query($sql);
+      if($query) header("LOCATION: index.php?logout=yes");
 			exit;
 		}
 		

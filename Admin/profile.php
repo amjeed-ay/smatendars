@@ -9,36 +9,37 @@ include ('include/header.php');
 function checkform ()
 {
   if (document.update.addBtn.value="save") {
+    confirm('Are you sure you want to delete this ?');
     alert('Profile Update Successfully');
+    
   }
 	
 }
 </script>
 <?php 
  if($acctype=="admin" || $acctype=="superadmin") { 
-  ?>
-<?php
+$err = '';
 if (isset($_GET['user_id'])){
 $user_id  = $_GET['user_id'];
 } else{
     $user_id  = $_SESSION['user_id'];
 }
-$user_inf = getMany('user',$user_id,'user_id');
-if(is_array($user_inf)){
-  $c_fname = $user_inf['fname'];
-  $c_lname = $user_inf['lname'];
-  $c_email = $user_inf['email'];
-  $c_phone = $user_inf['phone'];
-  $c_level  = $user_inf['level'];
-   } 
+
+
+  $c_fname = getRecord('user','user_id',$user_id,'fname',$conn);
+  $c_lname = getRecord('user','user_id',$user_id,'lname',$conn);
+  $c_email = getRecord('user','user_id',$user_id,'email',$conn);
+  $c_phone = getRecord('user','user_id',$user_id,'phone',$conn);
+  $c_level = getRecord('user','user_id',$user_id,'level',$conn);
+  
 if(isset($_POST["addBtn"])){
   $fname     = $_POST["fname"];
   $lname     = $_POST["lname"];
   $usernam    = $_POST['email'];
   $email    = $_POST['email'];
   $level   = $_POST['level'];
+  $phone_l  = $_POST['phone'];
 //   $center    = $_POST['center_l'];
- $phone_l    = $_POST['phone_l'];
 //   $state_l    = $_POST['state_l'];
 //   $lga_l    = $_POST['lga_l'];
 //   $ward_l    = $_POST['ward_l'];
@@ -52,10 +53,11 @@ if(isset($_POST["addBtn"])){
     $privi = 'limited';
   }
  
-  
+  if(isset($fname) OR isset($fname) OR isset($usernam) OR isset($email) OR isset($level)){
   $sqlp = "UPDATE `user` SET `fname` ='$fname', `lname` ='$lname', `username` ='$email', `phone` ='$phone_l', `email` ='$email', `level` = '$level' WHERE `user`.`user_id` = '$user_id'";
-  $queryp = mysql_query($sqlp);
-  
+  $queryp = $conn->query($sqlp);
+ if($queryp) header("location: ".$current);
+  }
 }
  
 ?>
@@ -84,23 +86,23 @@ if(isset($_POST["addBtn"])){
               <div class="panel-body" >
               <div> <p style="text-align: center; color:red; padding: 10px;"> <?php echo $err; ?></p></dv>
                 <div class="form">
-                  <form class="form-validate form-horizontal " name="update" id="register_form" method="post" action="profile.php">
+                  <form class="form-validate form-horizontal " name="update" id="register_form" method="post" action="">
                     <div class="form-group ">
                       <label for="fullname" class="control-label col-lg-2">Name<span class="required">*</span></label>
                       <div class="col-lg-5" style="padding-top: 20px;">
-                        <input class=" form-control" id="fullname" name="fname" type="text" value="<? echo $c_fname; ?>" required placeholder="Firstname" />
+                        <input class=" form-control" id="fullname" name="fname" type="text" value="<?php echo $c_fname; ?>" required placeholder="Firstname" />
                       </div>
                       <div class="col-lg-5" style="padding-top: 20px;">
-                        <input class=" form-control" id="fullname" name="lname" type="text" value="<? echo $c_lname; ?>" required placeholder="Othername" />
+                        <input class=" form-control" id="fullname" name="lname" type="text" value="<?php echo $c_lname; ?>" required placeholder="Othername" />
                       </div>
                     </div>
                     <div class="form-group ">
                       <label for="fullname" class="control-label col-lg-2">Contact<span class="required">*</span></label>
                       <div class="col-lg-4" style="padding-top: 20px;">
-                        <input class=" form-control" id="fullname" name="phone_l" type="number" value="<? echo $c_phone; ?>" required placeholder="Phone Number" />
+                        <input class=" form-control" id="fullname" name="phone" type="number" value="<?php echo $c_phone; ?>" required placeholder="Phone Number" />
                       </div>
                       <div class="col-lg-6" style="padding-top: 20px;">
-                        <input class=" form-control" id="fullname" name="email" type="email" value="<? echo $c_email; ?>" required placeholder="Email" />
+                        <input class=" form-control" id="fullname" name="email" type="email" value="<?php echo $c_email; ?>" required placeholder="Email" />
                       </div>
                       
                     </div>
@@ -112,17 +114,16 @@ if(isset($_POST["addBtn"])){
                      
 
                       <!-- subcatergory end -->
-                      
-                      
+                  
                         <div class="col-lg-2" style="padding-top: 20px;">
                         <select name="level" class="btn btn-default dropdown-toggle">
                         <option value="">Select level</option>
-                        <option <?php if($c_level == '1'){ echo 'selected';}?> value="1">Class 1</option>
-                        <option <?php if($c_level == '2'){ echo 'selected';}?> value="2">Class 2</option>
-                        <option <?php if($c_level == '3'){ echo 'selected';}?> value="3">Class 3</option>
-                        <option <?php if($c_level == '4'){ echo 'selected';}?> value="4">Class 4</option>
-                        <option <?php if($c_level == '5'){ echo 'selected';}?> value="5">Class 5</option>
-                        <option <?php if($c_level == '6'){ echo 'selected';}?> value="6">Class 6</option>
+                        <option <?php if(isset($c_level) && $c_level == '1'){ echo 'selected';}?> value="1">Class 1</option>
+                        <option <?php if(isset($c_level) && $c_level == '2'){ echo 'selected';}?> value="2">Class 2</option>
+                        <option <?php if(isset($c_level) && $c_level == '3'){ echo 'selected';}?> value="3">Class 3</option>
+                        <option <?php if(isset($c_level) && $c_level == '4'){ echo 'selected';}?> value="4">Class 4</option>
+                        <option <?php if(isset($c_level) && $c_level == '5'){ echo 'selected';}?> value="5">Class 5</option>
+                        <option <?php if(isset($c_level) && $c_level == '6'){ echo 'selected';}?> value="6">Class 6</option>
                         </select>
                       </div>
                     </div>
@@ -275,10 +276,7 @@ $(document).ready(function() {
 </html>
 <?php
  } else{
-
-  @header ("Refresh: 2; URL=".'../index.php');
-  echo "You are being redirected to your original page request<br>";
-  echo '(If your browser doesn’t support this, <a href="../index.php">click here</a>)';
+  header("location:../index.php");
  }
 
 ?>

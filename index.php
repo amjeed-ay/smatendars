@@ -14,9 +14,7 @@ ob_start();
   <meta name="author" content="ay amjeed">
   <meta name="keyword" content="Smavators e-attendance">
   <link rel="shortcut icon" href="img/favicon.png">
-
   <title>Login </title>
-
   <!-- Bootstrap CSS -->
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <!-- bootstrap theme -->
@@ -28,90 +26,60 @@ ob_start();
   <!-- Custom styles -->
   <link href="css/style.css" rel="stylesheet">
   <link href="css/style-responsive.css" rel="stylesheet" />
-
-  
 </head>
 
 <body class="login-img4-body">
 
 <!-- login script to be here -->
-<?
+<?php
+
 $err = "";
 if (isset($_POST['loginBtn'])) {
-	$userName = mysql_real_escape_string(trim($_POST['username']));
-	$password = mysql_real_escape_string(trim($_POST['password']) );
+	$userName = $_POST['username'];
+	$password = $_POST['password'];
 
 	if ($userName == '' || $password == '') {
 		$err = "Please enter your username and password";
-	}
-	
-	else {
-    if(!isset($redirect)){
+	}else{
+$sql = "SELECT * FROM user WHERE username = '$userName' AND password = PASSWORD('$password') AND (acctype='superadmin' OR acctype='user' OR acctype='admin') ";
+$result = $conn->query($sql);
 
-      
-    }
-		$str = "SELECT * 
-		        FROM user 
-				WHERE username = '$userName' AND password = PASSWORD('$password') AND (acctype='superadmin' OR acctype='user' OR acctype='admin') ";
-		$result = mysql_query($str) or die(mysql_error());
+if ($result->num_rows == 1) {
+  $row = $result->fetch_assoc();
 
-		if (mysql_num_rows($result) == 1) {
-			$row = mysql_fetch_assoc($result) or die(mysql_error());
-			if($row['active']){
-				$_SESSION['loggedin'] = 80;
-				$_SESSION['user_id'] = $row['user_id'];
-				$_SESSION['access'] = $row['access'];
-				$_SESSION['acctype'] = $row['acctype'];
-				$_SESSION['right'] = $row['center_id'];
-        $_SESSION['logged'] = $row['username'];
-        $_SESSION['state'] = $row['state_id'];
-        $_SESSION['lga'] = $row['lga_id'];
-        $_SESSION['ward'] = $row['ward_id'];
-        
-        
-				include_once("includes/functions.php") ;
-				doLog("login", "user $row[username] logs in as $row[acctype] ",  $row['user_id'], $_SERVER['REMOTE_ADDR']  ) ;
-        
-        if($row['acctype']=='superadmin' || $row['acctype']=='admin'){
-          $redirectx = "admin/index.php";
-            }
-            if($row['acctype']=='user'){
-              $redirectx = "facilitator/index.php";
-                }
-				header ("location:$redirectx");
-				// echo "You are being redirected to your original page request<br>";
-				// echo "(If your browser doesn’t support this, <a href=\"".$redirectx."\">click here</a>)";
-				exit;
-			}
-			else{
-				$err = "The user account has expired";
-			}
+if($row['active']){
+$_SESSION['loggedin'] = 80;
+$_SESSION['user_id'] = $row['user_id'];
+$_SESSION['access'] = $row['access'];
+$_SESSION['acctype'] = $row['acctype'];
+$_SESSION['right'] = $row['center_id'];
+$_SESSION['logged'] = $row['username'];
+$_SESSION['state'] = $row['state_id'];
+$_SESSION['lga'] = $row['lga_id'];
+$_SESSION['ward'] = $row['ward_id'];
 
-		
-		} else {
-			$err = "Wrong username or password";
-		}		
-			
-	}
+
+if($row['acctype']=='superadmin' || $row['acctype']=='admin'){
+$redirectx = "admin/index.php";
+}
+if($row['acctype']=='user'){ $redirectx = "facilitator/index.php"; }
+header ("location:$redirectx");
+}
+else{
+    $err = "The user account has expired";
 }
 
+    echo $_SESSION['access'];
+} else {
+  $err = "wrong username or password";
+}
+
+}
+	
+	
+}
+$conn->close();
 ?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 <!-- login script to be here -->

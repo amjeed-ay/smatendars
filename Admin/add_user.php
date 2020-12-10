@@ -3,18 +3,10 @@
 
 include ('include/header.php');
 
-?>
-<?php 
+$err = '';
  if($acctype=="admin" || $acctype=="superadmin") { 
-  ?>
-<?php
 
 
-if(isset($action)){
-
-  mysql_query("DELETE FROM user WHERE user_id='$bug'");
-  
-  }
 if(isset($_POST["addBtn"])){
   $fname     = $_POST["fname"];
   $lname     = $_POST["lname"];
@@ -42,15 +34,15 @@ if(isset($_POST["addBtn"])){
 
   if(!empty($fname) && !empty($lname) && !empty($email) && !empty($usernam) && !empty($phone_l) && !empty($center) && !empty($state_l) && !empty($lga_l) && !empty($ward_l)){
     $str = "SELECT * FROM user WHERE username = '$usernam'";
-    $result = mysql_query($str);
-    if (mysql_num_rows($result) == 1) {	
+    $result = $conn->query($str);
+    if (mysqli_num_rows($result) == 1) {	
       $err ='Email Already Exist !';
     }else{		
-  $queryu = mysql_query("INSERT INTO user(user_id,center_id,fname,lname,username,password,phone,email,state_id,lga_id,ward_id,level,access,acctype,date,active) 
-						VALUES('','$center',UCASE('$fname'),UCASE('$lname'),'$usernam', PASSWORD('$passwor'),'$phone_l','$email','$state_l','$lga_l','$ward_l','$level','$privi','$type',NOW(),'$act')");
-		if($queryu) doLog("create_user", "user $_SESSION[logged] creates user $usernam ",  $_SESSION['user_id'], $_SERVER['REMOTE_ADDR']  ) ;
-						
-    header("LOCATION: add_user.php");
+
+  $queryu = $conn->query("INSERT INTO user(user_id,center_id,fname,lname,username,password,phone,email,state_id,lga_id,ward_id,level,access,acctype,date,active) 
+            VALUES('','$center',UCASE('$fname'),UCASE('$lname'),'$usernam', PASSWORD('$passwor'),'$phone_l','$email','$state_l','$lga_l','$ward_l','$level','$privi','$type',NOW(),'$act')");
+            
+    if($queryu) $err = header("location: add_user.php");
   }
   }else{
   $err = 'All field (*) are required !';
@@ -122,8 +114,10 @@ if(isset($_POST["addBtn"])){
                       <select name="state_l" class="form-control" id="state_list">
                                   <option value="">Select State</option>
                                     <?php
-                                    $resultx = mysql_query("SELECT * FROM state");
-                                  while($rowx = mysql_fetch_array($resultx)) {
+                                    
+                                  $resultx = "SELECT * FROM state";
+                                  $reql = $conn->query($resultx);
+                                  while($rowx = mysqli_fetch_array($reql)) {
                                   ?>
                                     <option value="<?php echo $rowx["state_id"];?>"><?php echo $rowx["state_name"];?></option>
                                   <?php
@@ -152,25 +146,21 @@ if(isset($_POST["addBtn"])){
 
 
                       <!-- subcatergory end -->
-                      
-                      
                         <div class="col-lg-2" style="padding-top: 20px;">
                         <select name="level" class="btn btn-default dropdown-toggle">
                         <option value="">Select level</option>
-                        <option <?php if($levels == '1'){ echo 'selected';}?> value="1">Class 1</option>
-                        <option <?php if($levels == '2'){ echo 'selected';}?> value="2">Class 2</option>
-                        <option <?php if($levels == '3'){ echo 'selected';}?> value="3">Class 3</option>
-                        <option <?php if($levels == '4'){ echo 'selected';}?> value="4">Class 4</option>
-                        <option <?php if($levels == '5'){ echo 'selected';}?> value="5">Class 5</option>
-                        <option <?php if($levels == '6'){ echo 'selected';}?> value="6">Class 6</option>
+                        <option <?php if(isset($levels) && $levels == '1'){ echo 'selected';}?> value="1">Class 1</option>
+                        <option <?php if(isset($levels) && $levels == '2'){ echo 'selected';}?> value="2">Class 2</option>
+                        <option <?php if(isset($levels) && $levels == '3'){ echo 'selected';}?> value="3">Class 3</option>
+                        <option <?php if(isset($levels) && $levels == '4'){ echo 'selected';}?> value="4">Class 4</option>
+                        <option <?php if(isset($levels) && $levels == '5'){ echo 'selected';}?> value="5">Class 5</option>
+                        <option <?php if(isset($levels) && $levels == '6'){ echo 'selected';}?> value="6">Class 6</option>
                         </select>
                       </div>
 
                       
                     </div>
-                   
 
-                    
                     <div class="form-group ">
                     <label for="agree" class="control-label col-lg-2" style="padding-top: 20px;">Full Access <span class="required">*</span></label>
                       <div class="col-lg-2" style="padding-top: 20px;">
@@ -215,8 +205,8 @@ if(isset($_POST["addBtn"])){
                       <select name="state_v" class="btn btn-default" id="state_view">
                                   <option value="">Filter State</option>
                                     <?php
-                                    $resultxx = mysql_query("SELECT * FROM state");
-                                  while($rowxx = mysql_fetch_array($resultxx)) {
+                                    $resultxx = $conn->query("SELECT * FROM state");
+                                  while($rowxx = mysqli_fetch_array($resultxx)) {
                                   ?>
                                     <option value="<?php echo $rowxx["state_id"];?>"><?php echo $rowxx["state_name"];?></option>
                                   <?php
@@ -274,8 +264,9 @@ if(isset($_POST["addBtn"])){
                     <th><i class="icon_cogs"></i> Action</th>
                   </tr>
 
-                  <?
- $sql4 = "SELECT * FROM `user` WHERE `acctype` = 'user' " ;
+<?php 
+
+$sql4 = "SELECT * FROM user WHERE acctype = 'user' " ;
 
 if(isset($_POST['viewBtn'])){
  $state_v = $_POST['state_v'];
@@ -284,32 +275,24 @@ if(isset($_POST['viewBtn'])){
  $center_v = $_POST['center_v']; 
 
  if(!empty($state_v)){
-
   $sql4.= " AND state_id = '$state_v' ";
  }
 
  if(!empty($lga_v)){
-
   $sql4.= " AND lga_id = '$lga_v' ";
  }
- if(!empty($ward_v)){
 
+ if(!empty($ward_v)){
   $sql4.= " AND ward_id = '$ward_v' ";
  }
   
  if(!empty($center_v)){
-
   $sql4.= " AND center_id = '$center_v' ";
  }
-  
 
-
-  
-  
 }
-
-$res4 = mysql_query($sql4) ;
-while($usrnfo = mysql_fetch_array($res4)){
+$quer = $conn->query($sql4);
+while($usrnfo = mysqli_fetch_array($quer)){
   $name_u = $usrnfo["lname"].' '.$usrnfo["fname"];
   $date_u = $usrnfo['date'];
   $id_us = $usrnfo['user_id'];
@@ -324,20 +307,14 @@ while($usrnfo = mysql_fetch_array($res4)){
                     <td><?php echo $phone_u; ?></td>
                     <td><?php echo $email_u; ?></td>
                     <td><?php
-
-                     $center_arr = getMany('centre',$center_uid,'center_id');
-                     if(is_array($center_arr)){
-                       echo $center_arr['center_name'];
-                        } 
-                        
-                        
+                  echo getRecord('centre','center_id',$center_uid,'center_name',$conn);
                         ?></td>
                     
                     <td>
                       <div class="btn-group">
                       <a href="profile.php?user_id=<? echo $id_us ?>" class="btn btn-primary"><i class="fa fa-edit"></i></a>
                       <i class="fa fa-edit-o"></i>
-                      <a href="add_user.php?action=delete&bug=<? echo $id_us ?>" onclick="return confirm('Are you sure you want to delete this user?')" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>
+                      <a href="add_user.php?action=tled&blet=user&dis=user_id&bug=<?php echo $id_us ?>" onclick="return confirm('Are you sure you want to delete this user?')" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>
                       </div>
                     </td>
                   </tr>
@@ -418,8 +395,8 @@ $(document).ready(function() {
 			});
 	});
 });
-</script>
 
+</script>
 <script>
 $(document).ready(function() {
 	$('#state_view').on('change', function() {
@@ -478,10 +455,7 @@ $(document).ready(function() {
 </html>
 <?php
  } else{
-
-  @header ("Refresh: 2; URL=".'../index.php');
-  echo "You are being redirected to your original page request<br>";
-  echo '(If your browser doesn’t support this, <a href="../index.php">click here</a>)';
+  header("location:../index.php");
  }
 
 ?>
